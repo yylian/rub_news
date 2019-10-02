@@ -137,19 +137,9 @@ def format_message(message):
 
 if __name__ == '__main__':
 
-    fallback_id = 145310771
     chat_id = -1001076294841
     token = get_telegram_token()
-    bot = Updater(token=token).bot
+    bot = Updater(token=token, use_context=True).bot
 
-    try:
+    main(bot, chat_id)
 
-        main(bot, chat_id)
-
-    except Exception as exception:
-
-        text = 'RUB - CHAT:\n'
-        text += str(exception)
-        text += exception.with_traceback()
-
-        bot.send_message(fallback_id, text)

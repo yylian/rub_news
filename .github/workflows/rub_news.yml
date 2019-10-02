@@ -1,0 +1,24 @@
+name: CTF_News
+
+on:
+  schedule:
+  - cron: '*/10 * * * *'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run Application
+      run: |
+        python main.py  ${{ secrets.BOT_TOKEN }}
