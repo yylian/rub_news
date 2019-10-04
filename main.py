@@ -97,6 +97,8 @@ def filter_entries(raw_entries, last_message_hash):
     for entry in entries:
 
         hash_of_current_message = sha256(entry.encode('utf-8')).hexdigest()
+        
+        print(hash_of_current_message)
 
         if hash_of_current_message == last_message_hash:
 
@@ -128,8 +130,10 @@ def send_messages(entries, bot, chat_id):
 
 def format_message(message):
 
+    message = message.replace('*', '')
+    message = message.replace('_', '')
+    
     html_tags_to_be_removed = ['h7']
-
     message = md(message, strip=html_tags_to_be_removed)
 
     return message
