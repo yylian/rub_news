@@ -82,7 +82,10 @@ def filter_entries(raw_entries, last_message_hash):
 
     for entry in raw_entries:
 
-        entry_is_not_valid = 'align' in entry.attrs and entry.attrs['align'] == 'center'
+        entry_is_footer = 'id' in entry.attrs and entry.attrs['id'] == 'footer'
+        entry_is_illegally_aligned =  'align' in entry.attrs and entry.attrs['align'] == 'center'
+        entry_is_footertext = 'id' in entry.attrs and entry.attrs['id'] == 'fusszeilentext'
+        entry_is_not_valid = entry_is_illegally_aligned or entry_is_footer or entry_is_footertext
 
         if entry_is_not_valid:
 
@@ -131,6 +134,9 @@ def format_message(message):
     html_tags_to_be_removed = ['h7']
 
     message = md(message, strip=html_tags_to_be_removed)
+
+    message = message.replace('*', '')
+    message = message.replace('_', '')
 
     return message
 
